@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SpringBootKotlinQuerydslApplication
+class DomainApplication
 
 fun main(args: Array<String>) {
-    runApplication<SpringBootKotlinQuerydslApplication>(*args)
+    runApplication<DomainApplication>(*args)
 }
