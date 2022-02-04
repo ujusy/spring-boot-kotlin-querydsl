@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.6.3"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("io.kotest") version "0.3.9"
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
     kotlin("plugin.jpa") version "1.6.10"
@@ -36,6 +37,7 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jetbrains.kotlin.kapt")
+    apply(plugin = "io.kotest")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
@@ -54,7 +56,17 @@ subprojects {
 
         runtimeOnly("com.h2database:h2")
 
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.springframework.boot:spring-boot-starter-test") {
+            exclude(module = "assertj-core")
+            exclude(module = "hamcrest")
+            exclude(module = "junit-jupiter")
+            exclude(module = "mockito-core")
+            exclude(module = "mockito-junit-jupiter")
+            exclude(module = "jsonassert")
+        }
+        testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.0")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
+        testImplementation("io.kotest:kotest-runner-junit5:5.1.0")
+        testImplementation("io.kotest:kotest-assertions-core:5.1.0")
     }
-
 }
