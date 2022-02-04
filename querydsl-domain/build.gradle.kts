@@ -7,6 +7,6 @@ tasks {
     }
 }
 
-dependencies {
-
+kotlin.sourceSets.main {
+    setBuildDir("src/generated/kotlin")
 }
