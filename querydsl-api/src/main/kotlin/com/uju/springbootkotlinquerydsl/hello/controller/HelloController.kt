@@ -3,9 +3,12 @@ package com.uju.springbootkotlinquerydsl.hello.controller
 import com.uju.springbootkotlinquerydsl.hello.dto.GetHelloResponseDto
 import com.uju.springbootkotlinquerydsl.hello.service.HelloService
 import com.uju.springbootkotlinquerydsl.hello.Hello
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RestController
+import com.uju.springbootkotlinquerydsl.hello.dto.CreateHelloRequestDto
+import com.uju.springbootkotlinquerydsl.hello.dto.CreateHelloResponseDto
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
+
 
 @RestController
 class HelloController(
@@ -13,7 +16,7 @@ class HelloController(
 ) {
 
     @GetMapping("/hello/{id}")
-    fun getHello(@PathVariable("id") id: Long): GetHelloResponseDto {
+    fun getHello(@PathVariable("id") id: Long): ResponseEntity<GetHelloResponseDto> {
         val hello: Hello = this.helloService.get(id)
 
         // convert hello to response dto
@@ -21,6 +24,18 @@ class HelloController(
             id = hello.id,
             name = hello.name,
         )
-        return response
+        return ResponseEntity.ok(response)
+    }
+
+    @PostMapping("/hello")
+    fun createHello(@RequestBody @Valid createHelloRequestDto: CreateHelloRequestDto)
+    : ResponseEntity<CreateHelloResponseDto> {
+        val hello: Long = helloService.save(createHelloRequestDto)
+
+        return ResponseEntity.ok(
+            CreateHelloResponseDto(
+            id = hello
+            )
+        )
     }
 }
