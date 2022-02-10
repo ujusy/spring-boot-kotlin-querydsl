@@ -51,6 +51,7 @@ subprojects {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("com.querydsl:querydsl-jpa:5.0.0")
+        implementation("org.springframework.boot:spring-boot-starter-validation")
 
         kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 
